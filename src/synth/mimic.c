@@ -127,28 +127,28 @@ cst_voice *mimic_voice_select(const char *name)
 {
     const cst_val *v;
     cst_voice *voice;
-
-    if (mimic_voice_list == NULL)
-        return NULL;            /* oops, not good */
-    if (name == NULL)
-        return val_voice(val_car(mimic_voice_list));
-
-    for (v = mimic_voice_list; v; v = val_cdr(v))
+    if ((name == NULL) && (mimic_voice_list != NULL))
     {
-        voice = val_voice(val_car(v));
-        if (cst_streq(name, voice->name))       /* short name */
-            return voice;
-        if (cst_streq(name, get_param_string(voice->features, "name", "")))
-            /* longer name */
-            return voice;
-        if (cst_streq
-            (name, get_param_string(voice->features, "pathname", "")))
-            /* even longer name (url) */
-            return voice;
+        return val_voice(val_car(mimic_voice_list));
     }
-
-    if (cst_urlp(name) ||       /* naive check if its a url */
-        cst_strchr(name, '/'))
+    if (mimic_voice_list != NULL)
+    {
+        for (v = mimic_voice_list; v; v = val_cdr(v))
+        {
+            voice = val_voice(val_car(v));
+            if (cst_streq(name, voice->name))       /* short name */
+                return voice;
+            if (cst_streq(name, get_param_string(voice->features, "name", "")))
+                /* longer name */
+                return voice;
+            if (cst_streq
+                    (name, get_param_string(voice->features, "pathname", "")))
+                /* even longer name (url) */
+                return voice;
+        }
+    }
+    if (name && (cst_urlp(name) ||       /* naive check if its a url */
+            cst_strchr(name, '/')))
     {
         voice = mimic_voice_load(name);
         if (!voice)
@@ -158,8 +158,7 @@ cst_voice *mimic_voice_select(const char *name)
         return voice;
     }
 
-    return mimic_voice_select(NULL);
-
+    return NULL;
 }
 
 int mimic_voice_add_lex_addenda(cst_voice *v, const cst_string *lexfile)
