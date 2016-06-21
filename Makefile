@@ -71,9 +71,6 @@ endif
 config/config: config/config.in config.status
 	./config.status
 
-configure: configure.in
-	autoconf
-
 backup: time-stamp
 	@ $(RM) -f $(TOP)/FileList
 	@ $(MAKE) file-list
@@ -126,6 +123,7 @@ voices: ./bin/mimic_cmu_us_awb ./bin/mimic_cmu_us_rms ./bin/mimic_cmu_us_rms
 	./bin/mimic_cmu_us_rms -voicedump voices/cmu_us_rms.mimicvox
 	./bin/mimic_cmu_us_slt -voicedump voices/cmu_us_slt.mimicvox
 
-test:
-	@ $(MAKE) --no-print-directory -C testsuite test
+test: all
+	@ $(MAKE) --no-print-directory -C unittests
+	@ $(MAKE) --no-print-directory -C testsuite
 
