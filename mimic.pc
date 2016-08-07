@@ -1,0 +1,12 @@
+prefix=/usr/local
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Name: mimic
+Description: text to speech synthesis
+URL: http://mimic.mycroft.ai/
+Version: 1.1.0.9000
+Requires:  alsa
+Libs: -L${exec_prefix}/lib -L${exec_prefix}/lib -lttsmimic_lang_cmu_us_kal -lttsmimic_lang_cmu_time_awb -lttsmimic_lang_cmu_us_kal16 -lttsmimic_lang_cmu_us_awb -lttsmimic_lang_cmu_us_rms -lttsmimic_lang_cmu_us_slt -lttsmimic_lang_vid_gb_ap -lttsmimic_lang_cmulex -lttsmimic_lang_cmu_indic_lex -lttsmimic_lang_cmu_grapheme_lex -lttsmimic_lang_cmu_grapheme_lang -lttsmimic_lang_cmu_indic_lang -lttsmimic_lang_usenglish -lttsmimic_lang_all_langs -lttsmimic_lang_all_voices -lttsmimic
+Cflags: -I${prefix}/include/ttsmimic -I${prefix}/include/ttsmimic/lang
