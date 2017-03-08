@@ -16,7 +16,7 @@ lib_LTLIBRARIES =
 
 lib_LTLIBRARIES += libttsmimic.la
 libttsmimic_la_SOURCES = 
-libttsmimic_la_CFLAGS =
+libttsmimic_la_CFLAGS = -I/usr/local/include/saga
 libttsmimic_la_LDFLAGS = -no-undefined
 libttsmimic_la_LIBADD = $(ICU_LIBS)
 
@@ -131,7 +131,7 @@ if LANG_ES_ANALYSIS
     libttsmimic_lang_all_langs_la_LIBADD += libttsmimic_lang_es.la
 endif
 
-libttsmimic_lang_es_la_LDFLAGS = -no-undefined
+libttsmimic_lang_es_la_LDFLAGS = -no-undefined -L/usr/local/lib -lsaga
 libttsmimic_lang_es_la_LIBADD = libttsmimic.la
 libttsmimic_lang_es_la_SOURCES = \
   lang/es_lang/es_init.c \
@@ -140,7 +140,34 @@ libttsmimic_lang_es_la_SOURCES = \
   lang/es_lang/es_tokenizer.c
 
 langheader_HEADERS += \
-  lang/es_lang/es_lang.h
+  lang/es_lang/es_lang.h \
+  /usr/local/include/saga
+if VOICE_CMU_US_KAL16
+    lib_LTLIBRARIES += libttsmimic_lang_cmu_es_kal16.la
+    libttsmimic_lang_all_voices_la_LIBADD += libttsmimic_lang_cmu_es_kal16.la
+endif
+
+libttsmimic_lang_cmu_es_kal16_la_LDFLAGS = -no-undefined
+libttsmimic_lang_cmu_es_kal16_la_SOURCES = \
+  lang/cmu_es_kal16/cmu_es_kal16.c \
+  lang/cmu_es_kal16/cmu_es_kal16_diphone.c \
+  lang/cmu_es_kal16/cmu_es_kal16_lpc.c \
+  lang/cmu_es_kal16/cmu_es_kal16_res.c \
+  lang/cmu_es_kal16/cmu_es_kal16_residx.c \
+  lang/cmu_es_kal16/voxdefs.h
+
+libttsmimic_lang_cmu_es_kal16_la_CFLAGS = \
+  -I$(top_srcdir)/lang/usenglish \
+  -I$(top_srcdir)/lang/es_lang \
+  -I$(top_srcdir)/lang/cmulex
+
+
+libttsmimic_lang_cmu_es_kal16_la_LIBADD = \
+  libttsmimic.la \
+  libttsmimic_lang_cmulex.la \
+  libttsmimic_lang_usenglish.la \
+  libttsmimic_lang_es.la
+
 
 ############## END: LANG_ES_ANALYSIS  ##################################
 

@@ -18,6 +18,10 @@ cst_voice *register_cmu_us_kal(const char *voxdir);
 cst_voice *register_cmu_us_kal16(const char *voxdir);
 #endif
 
+#if ENABLE_CMU_US_KAL16 && defined(ENABLE_ES_ANALYSIS)
+cst_voice *register_cmu_es_kal16(const char *voxdir);
+#endif
+
 #if ENABLE_CMU_US_RMS
 cst_voice *register_cmu_us_rms(const char *voxdir);
 #endif
@@ -47,6 +51,11 @@ cst_val *mimic_set_voice_list(const char *voxdir)
    #endif   
    #if ENABLE_CMU_US_KAL16
    mimic_voice_list = cons_val(voice_val(register_cmu_us_kal16(voxdir)),mimic_voice_list);
+   #endif
+   printf("Checking for spansh kevin...\n");
+   #if ENABLE_CMU_US_KAL16 && defined(ENABLE_ES_ANALYSIS)
+   printf("Registring spansh kevin...\n");
+   mimic_voice_list = cons_val(voice_val(register_cmu_es_kal16(voxdir)),mimic_voice_list);
    #endif   
    #if ENABLE_CMU_US_RMS
    mimic_voice_list = cons_val(voice_val(register_cmu_us_rms(voxdir)),mimic_voice_list);
