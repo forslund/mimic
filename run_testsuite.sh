@@ -244,28 +244,28 @@ case "${WHAT_TO_RUN}" in
     make install) || exit 1
 
     # armv7
-#    MIMIC_INSTALL_DIR=`pwd`"/install/ios_armv7"
-#    export WORKDIR=`pwd`"/builds/ios_armv7"
-#    mkdir -p "${MIMIC_INSTALL_DIR}"
-#    mkdir -p "${WORKDIR}"
-#    export CC="xcrun -sdk iphoneos clang -arch armv7"
-#    export CFLAGS="-Ofast -mios-version-min=5.0"
-#    export LDFLAGS="-flto"
-#(cd "$WORKDIR" && \
-#    ${MIMIC_TOP_SRCDIR}/dependencies.sh \
-#      PKG_CONFIG_PATH="${MIMIC_INSTALL_DIR}/lib/pkgconfig" \
-#      PKG_CONFIG_LIBDIR="" \
-#      --prefix="${MIMIC_INSTALL_DIR}" \
-#      --host=arm ) || exit 1
-#  (cd "$WORKDIR" && \
-#    ${MIMIC_TOP_SRCDIR}/configure \
-#      PKG_CONFIG_PATH="${MIMIC_INSTALL_DIR}/lib/pkgconfig" \
-#      PKG_CONFIG_LIBDIR="" \
-#      --prefix="${MIMIC_INSTALL_DIR}" \
-#      --with-audio=none --disable-voices-all \
-#      CFLAGS="-Ofast -mios-version-min=5.0" LDFLAGS="-flto" CC="xcrun -sdk iphoneos clang -arch armv7" --host=arm && \
-#    make -j ${NCORES} && \
-#    make install) || exit 1
+    MIMIC_INSTALL_DIR=`pwd`"/install/ios_armv7"
+    export WORKDIR=`pwd`"/builds/ios_armv7"
+    mkdir -p "${MIMIC_INSTALL_DIR}"
+    mkdir -p "${WORKDIR}"
+    export CC="xcrun -sdk iphoneos clang -arch armv7"
+    export CFLAGS="-Ofast -mios-version-min=5.0"
+    export LDFLAGS="-flto"
+(cd "$WORKDIR" && \
+    ${MIMIC_TOP_SRCDIR}/dependencies.sh \
+      PKG_CONFIG_PATH="${MIMIC_INSTALL_DIR}/lib/pkgconfig" \
+      PKG_CONFIG_LIBDIR="" \
+      --prefix="${MIMIC_INSTALL_DIR}" \
+      --host=arm ) || exit 1
+  (cd "$WORKDIR" && \
+    ${MIMIC_TOP_SRCDIR}/configure \
+      PKG_CONFIG_PATH="${MIMIC_INSTALL_DIR}/lib/pkgconfig" \
+      PKG_CONFIG_LIBDIR="" \
+      --prefix="${MIMIC_INSTALL_DIR}" \
+      --with-audio=none --disable-voices-all \
+      CFLAGS="-Ofast -mios-version-min=5.0" LDFLAGS="-flto" CC="xcrun -sdk iphoneos clang -arch armv7" --host=arm && \
+    make -j ${NCORES} && \
+    make install) || exit 1
 
     # armv7s
 #    MIMIC_INSTALL_DIR=`pwd`"/install/ios_armv7s"
